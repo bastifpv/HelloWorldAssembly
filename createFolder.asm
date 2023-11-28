@@ -15,10 +15,14 @@ _start:
     MOV rdx, dynvarlen
     SYSCALL
 
-    MOV rax, 0x01
-    MOV rdi, 0x01
-    MOV rsi, dynvar
-    MOV rdx, dynvarlen
+    MOV rax, 0x53 
+    MOV rdi, dynvar
+    MOV rsi, 0o777 
+    XOR rdx, rdx 
+    SYSCALL
+
+    MOV rdi, rax
+    MOV rax, 3
     SYSCALL
 
     MOV rax, 0x3C
@@ -26,7 +30,7 @@ _start:
     SYSCALL
 
 section .data
-    msg: DB "Hello, World", 0xA
+    msg: DB "Input Folder Name:", 0xA
     msglen: EQU $ - msg
-    dynvar: DB "Test"
+    dynvar: DB ""
     dynvarlen: EQU 0x20 
